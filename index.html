@@ -693,6 +693,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
     --brass:#A9832E;
     --moss:#4F7A2E;
     --slate:#35617D;
+    --plum:#7A3350;
+    --teal:#2F6B62;
     --line:rgba(35,38,30,0.14);
     --shadow:0 2px 10px rgba(35,38,30,0.18);
     --ribbon-h:96px;
@@ -955,6 +957,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   .swatch.cat-camping{ border-radius:3px; background:var(--rust); }
   .swatch.cat-walk{ border-radius:7px; background:var(--moss); }
   .swatch.cat-lookout{ background:var(--slate); clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%); }
+  .swatch.cat-food{ background:var(--plum); clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%); }
+  .swatch.cat-town{ background:var(--teal); clip-path:polygon(34% 0,66% 0,66% 34%,100% 34%,100% 66%,66% 66%,66% 100%,34% 100%,34% 66%,0 66%,0 34%,34% 34%); }
   .stop-name{
     font-family:'Fraunces',serif;
     font-weight:600;
@@ -1240,6 +1244,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   .pin-camping{ border-radius:4px; background:var(--rust); border:2px solid var(--ink); }
   .pin-walk{ border-radius:9px; background:var(--moss); border:2px solid var(--ink); }
   .pin-lookout{ background:var(--slate); border:2px solid var(--ink); clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%); width:20px; height:20px; }
+  .pin-food{ background:var(--plum); border:2px solid var(--ink); clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%); width:20px; height:20px; }
+  .pin-town{ background:var(--teal); clip-path:polygon(34% 0,66% 0,66% 34%,100% 34%,100% 66%,66% 66%,66% 100%,34% 100%,34% 66%,0 66%,0 34%,34% 34%); width:20px; height:20px; }
   .pin-detour{ outline:2px dashed var(--rust); outline-offset:2px; }
   .pin-active{ outline:3px solid var(--ink); outline-offset:3px; }
   .leaflet-marker-icon:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; }
@@ -1313,6 +1319,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
             <button class="filter-btn" type="button" data-filter="lookout" aria-pressed="false"><span class="fn" id="cLookout"></span>Lookouts</button>
             <button class="filter-btn" type="button" data-filter="attraction" aria-pressed="false"><span class="fn" id="cAttraction"></span>Attractions</button>
             <button class="filter-btn" type="button" data-filter="waypoint" aria-pressed="false"><span class="fn" id="cWaypoint"></span>Waypoints</button>
+            <button class="filter-btn" type="button" data-filter="food" aria-pressed="false"><span class="fn" id="cFood"></span>Eat and drink</button>
+            <button class="filter-btn" type="button" data-filter="town" aria-pressed="false"><span class="fn" id="cTown"></span>In town</button>
           </div>
           <p class="filter-count" id="filterCount" aria-live="polite"></p>
         </div>
@@ -1373,49 +1381,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
       <h3>Taumarunui, the eastern end</h3>
       <p>The first town with a supermarket since Stratford, and the obvious place to spend a
-      night at this end of the road. Everything below is mapped in OpenStreetMap, with phone
-      numbers and addresses taken off the operators' own sites. OpenStreetMap's coverage of a
-      town this size is thin, so treat the list as what is confirmed rather than as everything
-      that exists, and expect places on the ground that are not here. New World is the one
-      place on this list with published opening hours, and a phone number appears only where
-      the operator publishes one, so for the rest it is turn up and see.</p>
+      night at this end of the road. The town's places are in the stop list under the
+      <b>Eat and drink</b> and <b>In town</b> tabs, sitting after the last stop on the highway.
+      Everything on those two tabs is mapped in OpenStreetMap, with phone numbers and street
+      numbers read off the operators' own sites. OpenStreetMap's coverage of a town this size
+      is thin, so treat those tabs as what is confirmed rather than as everything that exists,
+      and expect places on the ground that are not there. New World and BP 2go are the only two
+      with published hours, and a phone number appears only where the operator publishes one,
+      so for the rest it is turn up and see.</p>
 
-      <p><b>Eat and drink</b></p>
-      <table class="legs">
-        <thead><tr><th>Place</th><th>What</th><th>Where</th></tr></thead>
-        <tbody>
-          <tr><td>Cafe and Restaurant 75</td><td>Restaurant, outdoor seating, step-free access</td><td>75 Hakiaha Street</td></tr>
-          <tr><td>Jasmines Cafe</td><td>Cafe</td><td>Town centre</td></tr>
-          <tr><td>JDZ Carriage Cafe</td><td>Cafe in a railway carriage</td><td>By the station</td></tr>
-          <tr><td>Taumarunui RSA</td><td>Club, burgers and regional food, wifi</td><td>Marae Street</td></tr>
-          <tr><td>Taumarunui Hotel</td><td>Hotel and public bar</td><td>Town centre</td></tr>
-          <tr><td>Mr Pizza</td><td>Pizza, takeaway</td><td>Town centre</td></tr>
-          <tr><td>Hong Kong Fast Food</td><td>Takeaway</td><td>Town centre</td></tr>
-          <tr><td>McDonald's</td><td>Burgers, takeaway</td><td>07 895 3520</td></tr>
-          <tr><td>Liquorland</td><td>Off licence</td><td>Town centre</td></tr>
-        </tbody>
-      </table>
-
-      <p><b>Things to do</b></p>
-      <table class="legs">
-        <thead><tr><th>Place</th><th>What</th><th>Where</th></tr></thead>
-        <tbody>
-          <tr><td>Forgotten World Adventures</td><td>Rail carts on the closed Stratford to Okahukura line, and jet boat trips. Tours look seasonal, so ring before you count on one.</td><td>9 Hakiaha Street<br>0800 7245 2278</td></tr>
-          <tr><td>Taumarunui Canoe Hire</td><td>Whanganui River canoe and kayak hire, and jet boat tours</td><td>292 Hikumutu Road<br>0800 226 6348</td></tr>
-          <tr><td>Taumarunui River Walk</td><td>7.0km riverside trail, in the stop list above</td><td>Off Cherry Grove</td></tr>
-          <tr><td>Rail Action Centre</td><td>Small volunteer railway museum</td><td>By the station</td></tr>
-          <tr><td>i-SITE</td><td>Visitor centre, in the station building</td><td>Hakiaha Street</td></tr>
-          <tr><td>Taumarunui Golf Club</td><td>Golf course</td><td>2km north of town</td></tr>
-          <tr><td>Taumarunui Domain</td><td>Park and sports ground</td><td>Short walk from the centre</td></tr>
-          <tr><td>Rangaroa Reserve</td><td>Park</td><td>North of the centre</td></tr>
-          <tr><td>Sawmillers Commemorative Picnic Ground</td><td>Roadside picnic area</td><td>4km east on SH4</td></tr>
-        </tbody>
-      </table>
-
-      <p><b>Supplies.</b> New World on Hakiaha Street, 07 896 0070, is open 7am to 8pm Monday
-      to Wednesday and at the weekend, and 7am to 8.30pm Thursday and Friday. There is a Four
-      Square in the town centre. BP 2go on Hakiaha Street runs 24 hours and Mobil sits a
-      little further east. This is the first fuel since Stratford in either direction.</p>
+      <p><b>Not on the map.</b> Forgotten World Adventures, 9 Hakiaha Street, 0800 7245 2278,
+      runs rail carts along the closed Stratford to Okahukura line and jet boat trips on the
+      Whanganui. It is not mapped in OpenStreetMap so it gets no pin, and its tours look
+      seasonal, so ring before you count on one. The Taumarunui River Walk is a stop on the
+      highway list rather than a town one, since it starts off Cherry Grove.</p>
 
       <h3>Walk figures, and what they mean</h3>
       <p>Distance is measured node to node along the track's own mapped line. For the three
@@ -1476,8 +1455,34 @@ const ELEVATION = [[0.0,311.0],[1.25,291.0],[2.5,275.0],[3.75,259.0],[5.0,251.0]
 const POIS = [{"name":"Cardiff Walkway","cat":"walk","lat":-39.36007,"lon":174.22862,"km":0.0,"detourKm":6.2,"detourMin":6,"desc":"A short bush loop on the Cardiff side of Stratford, out on the road toward the mountain. Only worth the run if you have time to spare before starting the highway proper, but it is the closest walk to the western end.","stats":{"km":0.87,"gain":29,"lo":373,"hi":392,"mins":16,"shape":"Loop","osm":"OSM:Cardiff Walkway"}},{"name":"Carrington Walkway","cat":"walk","lat":-39.341805,"lon":174.287234,"km":0.0,"detourKm":0.6,"detourMin":1,"desc":"An easy unsealed walkway following the Patea River through Stratford. A good way to stretch out before the drive, or to shake off the road at the end of one coming the other way.","stats":{"km":2.52,"gain":16,"lo":292,"hi":307,"mins":39,"shape":"Return","osm":"OSM:Carrington Walkway","surface":"unpaved"}},{"name":"Stratford","cat":"waypoint","lat":-39.3396858,"lon":174.2840888,"km":0.0,"desc":"Western end of the Forgotten World Highway, and the last fuel, water and supermarket before Taumarunui 148km away. Z and Caltex sit on Broadway and Allied on Regan Street runs 24 hours. Fill up here: there is no fuel at all between the two ends."},{"name":"Stratford Glockenspiel","cat":"attraction","lat":-39.3395255,"lon":174.2849504,"km":0.0,"detourKm":0.2,"detourMin":1,"desc":"New Zealand's only glockenspiel, on the clock tower in the middle of Broadway. Four times a day the doors open and carved figures play out the balcony scene from Romeo and Juliet, three Romeos and three Juliets in turn, ending hand in hand. It runs about five minutes and the tower is a two minute walk from the main street parking, so it costs you nothing but the wait for the next one.","access":"10am, 1pm, 3pm, 7pm daily"},{"name":"Taranaki Pioneer Village","cat":"attraction","lat":-39.3565027,"lon":174.2930827,"km":0.0,"detourKm":2.3,"detourMin":3,"desc":"A ten acre outdoor museum just south of Stratford with about 40 relocated buildings dating from roughly 1850 to 1950, including a church, a courthouse and a railway station. The Pioneer Express runs a loop of the grounds at 11am, 1pm and 3pm, and the Shakee Pear cafe and playground are on site. Budget a couple of hours if you go in.","warning":"Weekends and public holidays only, 10am to 4pm, unless it is school holidays when it opens seven days. Saturday or Sunday is the only way this one works on a Thursday to Monday trip."},{"name":"Stratford Motel & Holiday Park","cat":"camping","lat":-39.3433721,"lon":174.281452,"km":0.1,"detourKm":0.9,"detourMin":2,"desc":"Powered and unpowered sites on Page Street, plus cabins, kitchen cabins, tourist flats, motel units and a backpacker lodge. On site there is a heated swimming pool, a spa, a camp kitchen, laundry, BBQ, a TV room and a playground, and there is a dump station by the toilet block in the middle of the park. A signposted bush walk leaves the bottom of the park and reaches town in about 15 minutes, so the van can stay put for the evening.","access":"dump station on site"},{"name":"Whakaahu Rangi Plaque","cat":"attraction","lat":-39.335601,"lon":174.336954,"km":4.7,"detourKm":0.3,"detourMin":1,"desc":"A roadside memorial plaque mapped just off the highway between Stratford and Toko. It is signposted on the ground rather than documented anywhere online, so treat it as a two minute curiosity on the way past rather than a destination in its own right."},{"name":"Toko","cat":"waypoint","lat":-39.3368792,"lon":174.3928366,"km":9.9,"desc":"A small rural settlement marking the point where the highway leaves Stratford's dairy flats and starts climbing into hill country."},{"name":"Douglas","cat":"waypoint","lat":-39.3039933,"lon":174.4685933,"km":18.1,"desc":"Another small farming settlement on the still-gentle stretch of highway before the first saddle."},{"name":"Strathmore Saddle","cat":"lookout","lat":-39.2754766,"lon":174.5677761,"km":30.3,"desc":"The first of the four saddles the highway crosses. On a clear day you can see all four of the region's great mountains at once: Taranaki, Ruapehu, Ngauruhoe and Tongariro. Picnic tables at the top make it a good stretch-the-legs stop."},{"name":"Te Wera Valley Lodge","cat":"camping","lat":-39.230054,"lon":174.596855,"km":36.7,"detourKm":0.1,"detourMin":1,"desc":"A camp run by the Te Wera Outdoor Recreational Trust, sitting right on the highway in the Te Wera forest between Douglas and the first saddle. It is set up for school and group camps rather than passing vans, so ring ahead rather than turning up, but it is the only formal site on the western third of the road."},{"name":"Pohokura Saddle","cat":"lookout","lat":-39.1684497,"lon":174.6745062,"km":51.5,"desc":"Second saddle, named for a Maori chief, looking down over a lush green valley. A good marker that you are now properly into the highway's wild middle section."},{"name":"Whangamomona Saddle","cat":"lookout","lat":-39.155136,"lon":174.699639,"km":55.8,"desc":"Third of the four saddles, and the one most people drive over without noticing because it sits between the two bigger climbs. The pull-off looks back down the Whangamomona valley, a few minutes before the village itself."},{"name":"Whangamomona Camping Ground","cat":"camping","lat":-39.148664,"lon":174.740265,"km":61.6,"desc":"Village-run campground in the grounds of the old school, about 600 metres on from the hotel. Powered and unpowered sites, cash only, roughly $15 to $20. Old kitchen, laundry and hot showers on site."},{"name":"Whangamomona","cat":"attraction","lat":-39.1446568,"lon":174.7356271,"km":61.7,"desc":"The self-declared Republic of Whangamomona. Residents seceded in protest at a 1989 council boundary change and have run their own president ever since, past holders of the office including a goat and a poodle, the latter surviving what locals call an assassination attempt. The historic hotel, rebuilt in 1911, is the only year-round food and drink on the whole highway, and you can get your passport stamped at the bar."},{"name":"Tahora Saddle Back Country Accommodation","cat":"camping","lat":-39.0667126,"lon":174.7984763,"km":73.7,"desc":"Rob and Annie run a simple campground on the hilltop at the fourth saddle: a long-drop with a view, a BBQ kitchen, and a few powered hardstand sites near the house with a proper hot shower. Around $12 per person unpowered, $25 for two on powered hardstand. Cash only, and prices are approximate."},{"name":"Tahora Saddle lookout","cat":"lookout","lat":-39.063564,"lon":174.796402,"km":74.0,"desc":"The fourth and last saddle, and the widest view on the road. Three Maori pa sites, the old railway tunnels in the valley below, and the Central Plateau mountains on the horizon when the weather allows."},{"name":"Tahora","cat":"waypoint","lat":-39.0310978,"lon":174.8032281,"km":79.3,"desc":"Small settlement at the base of the saddle, close to the Moki Tunnel and the Moki Road turnoff for Mount Damper Falls."},{"name":"Bushlands Campground, Tangarakau","cat":"camping","lat":-39.0256798,"lon":174.8097802,"km":79.9,"desc":"Down Raekohua Road at the old Tangarakau railway construction settlement, now a ghost town reclaimed by bush. Non-powered sites along the river plus six powered sites with valley views, and old photographs of the vanished settlement on display."},{"name":"Moki Tunnel","cat":"attraction","lat":-39.0188283,"lon":174.8022259,"km":80.9,"access":"4.5m clearance","desc":"A single-lane, 180-metre tunnel through the hill, built in 1936 and known locally as the Hobbit's Hole. Its floor was lowered decades later to let triple-decked stock trucks through, and the signposted clearance is 4.5 metres, so a high-top van goes through with room to spare. Speed limit 20km/h, traffic alternates, and it is blind in the middle, so a tap on the horn before you commit is not a bad idea."},{"name":"Fossil canyon","cat":"attraction","lat":-39.005099,"lon":174.83799,"km":82.8,"desc":"A canyon in the Tangarakau Gorge mapped as a fossil site, sitting essentially on the road with no detour to speak of. There is no visitor infrastructure and nothing signposted, so it is a stop for people who like looking at rock rather than a formal attraction."},{"name":"Tangarakau Gorge","cat":"attraction","lat":-38.99209,"lon":174.82259,"km":86.0,"desc":"A 12km stretch of native podocarp forest and river gorge that was, until 2025, the last unsealed section of New Zealand state highway. Fully sealed now, but still narrow and winding, so go slow and expect to meet logging trucks."},{"name":"Mount Damper Falls","cat":"walk","lat":-38.9200834,"lon":174.7871984,"km":88.6,"detourKm":21.2,"detourMin":41,"desc":"The North Island's second-highest waterfall, a 74-metre drop reached by a short walk through farmland and bush. Worth doing, but budget properly: the turnoff is back at Moki Road near Tahora and it is 21km of mostly gravel each way, about 40 minutes' driving before you even start walking.","warning":"DOC closes this track to hunters from 1 August to 31 October for lambing, but it stays open to walkers, so it is on for these dates. Still 21km of mostly gravel each way, so commit to the drive before you set off.","stats":{"km":1.48,"gain":54,"lo":313,"hi":328,"mins":28,"shape":"Return","osm":"DOC:Mount Damper Falls Walk","doc":{"grade":"Easiest","time":"30 min","mins":30,"dist":"1 km to the falls","link":"https://www.doc.govt.nz/link/4d9a7bcb8bab497fa3aebe19fe2d524b.aspx","docName":"Mount Damper Falls Walk"}}},{"name":"Tangarakau Gorge free camp","cat":"camping","lat":-38.9805138,"lon":174.8345052,"km":89.5,"desc":"A very small roadside freedom camping spot in the gorge, room for around two self-contained vans, with a drop toilet. Basic and a little exposed, fine for one night, though some travellers prefer to push on to Bushlands or Whangamomona instead."},{"name":"Joshua Morgan's Grave","cat":"walk","lat":-38.9781827,"lon":174.8340232,"km":89.6,"desc":"A short bush walk near the Tangarakau Bridge to the grave of Joshua Morgan, the government surveyor who pushed the original road route through this country and died out here in 1893, aged 35. His wife Anne was laid to rest alongside him in 1953.","stats":{"km":0.24,"gain":9,"lo":160,"hi":169,"mins":4,"shape":"Return","osm":"OSM:unnamed spur"}},{"name":"Tatu Track","cat":"walk","lat":-38.906898,"lon":174.913255,"km":108.1,"detourKm":8.5,"detourMin":19,"desc":"A bush track in the hills above Tatu, near the old coal settlement outside Ohura. Quiet, rough underfoot and rarely walked, which is most of its appeal. Gravel road in.","stats":{"km":8.43,"gain":867,"lo":280,"hi":584,"mins":213,"shape":"Return","osm":"OSM:Tatu Track"}},{"name":"Ohura","cat":"camping","lat":-38.8420351,"lon":174.9829083,"km":109.4,"detourKm":10.2,"detourMin":11,"desc":"A former coal-mining town, once home to a prison, now down to around 130 residents. It is not on the modern highway, since SH43 used to end here before being rerouted via River Road after 1991, but it is worth the run in for the Cosmopolitan Club and a proper feel for the region's mining history. Campervans can park overnight at the Cosmopolitan Club, or in the area beside Tui Street between the Memorial Hall and the Mangaroa Stream. Call ahead if you can, because this is a small community and availability is not guaranteed."},{"name":"Nevins Lookout","cat":"lookout","lat":-38.920164,"lon":174.97491,"km":112.4,"desc":"A roadside viewpoint mapped right on the highway east of the Ohura turnoff, looking out over the King Country hills. An easy pull-off rather than a destination, but a good place to break the second half of the drive."},{"name":"Aukopae Tunnel walk","cat":"walk","lat":-38.925692,"lon":175.083999,"km":125.6,"desc":"A short walking route on River Road beside the abandoned Stratford to Okahukura railway, near the Aukopae tunnel. It sits within a hundred metres of the highway, so it costs no detour at all. Check the signage on the ground, since this one is less formally maintained than the DOC tracks.","stats":{"km":1.53,"gain":61,"lo":229,"hi":290,"mins":29,"shape":"Return","osm":"OSM:Aukopae Tunnel walk"}},{"name":"Niu Pole","cat":"attraction","lat":-38.933704,"lon":175.119098,"km":127.5,"detourKm":1.0,"detourMin":4,"desc":"A niu pole recorded just off River Road, east of Ohura. Niu poles were raised as the focus of Pai Marire worship in the 1860s, which makes this a site of real religious and historical significance rather than a roadside curiosity. Treat it accordingly, keep to public land, and do not climb on or handle anything."},{"name":"Ohinepane Campsite","cat":"camping","lat":-38.942268,"lon":175.145596,"km":130.0,"detourKm":0.7,"detourMin":2,"desc":"A Department of Conservation campsite on the Whanganui River, one of only four road-accessible points on the Whanganui Journey and the only DOC site anywhere near this highway. Drive-in access, 36 non-powered sites, toilets, a cooking shelter and a tap you should boil from. Outside the Great Walks season, 1 May to 30 September, no booking is needed and it runs first come first served at $10 per adult per night. From 1 October to 30 April it is $19 and you book if you are staying as part of the Whanganui Journey. DOC's own notes mention kereru, tui and fantail by day and brown kiwi heard at night.","access":"No booking needed 1 May to 30 September","warning":"An undercut slip sits beside the river on the entry into the campsite, fenced with warning signage since 11 August 2026. The campsite itself is open, but keep well clear of that ground. DOC publishes this alert only inside the Great Walks booking system, not on the campsite's own page, so it is worth a look at bookings.doc.govt.nz before you commit to the night."},{"name":"Te Maire Loop Track","cat":"walk","lat":-38.951636,"lon":175.187138,"km":136.5,"detourKm":1.6,"detourMin":3,"desc":"A loop track in the Whanganui River country off River Road, walkers only and no bikes. Only a couple of kilometres off the highway, and a genuine change of pace from the driving.","stats":{"km":3.62,"gain":187,"lo":165,"hi":336,"mins":73,"shape":"Loop","osm":"DOC:Te Maire Loop Track","doc":{"grade":"Easy","time":"2 hr","mins":120,"link":"https://www.doc.govt.nz/link/d848b5e1dda0440588bb523dd3bf5ed2.aspx","docName":"Te Maire Loop Track"}}},{"name":"Ohinetonga Track","cat":"walk","lat":-38.992277,"lon":175.394658,"km":141.8,"detourKm":28.4,"detourMin":32,"desc":"A genuine loop through the Ohinetonga Scenic Reserve at Owhango, in tall podocarp forest above the Whakapapa River. Unlike most of the tracks out here the road in is sealed the whole way, but it is a 28km run off the highway, the longest detour of any walk here, so it suits a night spent at the Taumarunui end.","stats":{"km":4.21,"gain":237,"lo":330,"hi":454,"mins":87,"shape":"Loop","osm":"DOC:Ohinetonga Track","doc":{"grade":"Easy","time":"2 hr","mins":120,"dist":"3.8 km","link":"https://www.doc.govt.nz/link/029baaf1381b4811a5a51b06b9e894ba.aspx","docName":"Ohinetonga Track"}}},{"name":"Piriaka Lookout","cat":"lookout","lat":-38.932332,"lon":175.343771,"km":143.5,"detourKm":17.8,"detourMin":17,"desc":"A well-known lookout over the Whanganui River, south of Taumarunui on SH4. It is a real detour rather than a pull-off, so it suits a night spent at the Taumarunui end rather than a stop mid-drive."},{"name":"Taumarunui Holiday Park","cat":"camping","lat":-38.8822907,"lon":175.3071835,"km":148.5,"detourKm":5.3,"detourMin":7,"desc":"Small, friendly, independent holiday park on the Whanganui River in Manunui, bordered by native bush. Powered and non-powered sites, cabins, and a big free-to-use herb and vegetable garden."},{"name":"Taumarunui","cat":"waypoint","lat":-38.8829514,"lon":175.2624615,"km":148.6,"detourKm":0.6,"detourMin":2,"desc":"Eastern end of the highway, on the Whanganui River, and the first proper town and supermarket since Stratford. BP 2go on Hakiaha Street is open 24 hours, with Mobil a little further east."},{"name":"Taumarunui River Walk","cat":"walk","lat":-38.88438,"lon":175.257257,"km":148.6,"detourKm":0.3,"detourMin":1,"desc":"An unsealed riverside trail along the Whanganui at Taumarunui, with the shorter Sunshine Track looping off it. Flat, easy, and a good way to loosen up after the drive without moving the van again.","stats":{"km":7.01,"gain":99,"lo":161,"hi":189,"mins":115,"shape":"Return","osm":"OSM:River walking trail","surface":"unpaved"}}];
 
 const TOTAL_KM = ELEVATION[ELEVATION.length - 1][0];
-const CAT_LABEL = { waypoint:'Waypoint', attraction:'Attraction', camping:'Camping', walk:'Walk', lookout:'Lookout' };
-const Z_BY_CAT  = { camping:0, waypoint:100, attraction:200, walk:300, lookout:400 };
+/* Taumarunui town stops. Kept out of POIS on purpose: they have no position on the
+   highway, they must not put 19 ticks on the elevation ribbon at km 148.6, and a town
+   packs places far closer together than the route does. They open at zoom 17 instead
+   of 15, and verify.py holds them to the same 12px separability at that zoom. */
+const TOWN = [
+  {"name":"Cafe and Restaurant 75","cat":"food","lat":-38.883262,"lon":175.262344,"where":"75 Hakiaha Street","desc":"Sit-down restaurant on the main street, with outdoor seating and step-free access."},
+  {"name":"Jasmines Cafe","cat":"food","lat":-38.883210,"lon":175.260838,"where":"Hakiaha Street","desc":"Cafe on the main street, in the middle of the shops."},
+  {"name":"JDZ Carriage Cafe","cat":"food","lat":-38.882733,"lon":175.268063,"where":"East end, by the station","desc":"A cafe set up inside an old railway carriage at the eastern end of town."},
+  {"name":"Hong Kong Fast Food","cat":"food","lat":-38.883291,"lon":175.261423,"where":"Hakiaha Street","desc":"Takeaway on the main street, a couple of doors from Jasmines."},
+  {"name":"Mr Pizza","cat":"food","lat":-38.883512,"lon":175.256660,"where":"West end of the main street","desc":"Pizza takeaway at the Stratford end of town, near the supermarket."},
+  {"name":"McDonald's","cat":"food","lat":-38.882826,"lon":175.256537,"where":"West end of the main street<br>07 895 3520","desc":"Burgers and a drive-through beside the BP at the western end of town."},
+  {"name":"Taumarunui RSA","cat":"food","lat":-38.885132,"lon":175.261346,"where":"Marae Street","desc":"Returned services club with a kitchen doing burgers and regional food, and wifi. It is a club rather than a restaurant, so ask at the door about signing in as a guest."},
+  {"name":"Taumarunui Hotel","cat":"food","lat":-38.884174,"lon":175.261116,"where":"Town centre","desc":"Old town hotel with a public bar, a block back from the main street."},
+  {"name":"Liquorland","cat":"food","lat":-38.883545,"lon":175.258259,"where":"West end of the main street","desc":"Off licence beside the supermarket. Nothing between here and Stratford sells drink except the Whangamomona pub, so stock the van here."},
+  {"name":"New World","cat":"town","lat":-38.882801,"lon":175.257889,"where":"Hakiaha Street<br>07 896 0070","access":"7am to 8pm, 8.30pm Thu and Fri","desc":"The first supermarket since Stratford, 148km back. Open 7am to 8pm Monday to Wednesday and at the weekend, and 7am to 8.30pm on Thursday and Friday. There is also a Four Square in the town centre."},
+  {"name":"BP 2go Taumarunui","cat":"town","lat":-38.882973,"lon":175.256963,"where":"Hakiaha Street<br>07 895 7863","access":"24 hours","desc":"First fuel in either direction on this road, and open around the clock. Nothing between here and Stratford sells any."},
+  {"name":"Mobil Taumarunui","cat":"town","lat":-38.883021,"lon":175.269917,"where":"East end of town<br>07 895 7914","desc":"The other fuel stop, at the far end of town on the way out toward Manunui."},
+  {"name":"Taumarunui i-SITE","cat":"town","lat":-38.882786,"lon":175.264974,"where":"In the old railway station","desc":"Visitor centre in the station building, and the place to ask what is actually open and what the road is doing."},
+  {"name":"Rail Action Centre","cat":"town","lat":-38.882751,"lon":175.265372,"where":"In the old railway station","desc":"Small volunteer railway museum sharing the station building with the i-SITE, covering the line that used to run the length of this highway."},
+  {"name":"Taumarunui Domain","cat":"town","lat":-38.885965,"lon":175.266226,"where":"Five minutes south of the main street","desc":"Park and sports ground, the nearest bit of open grass to the town centre."},
+  {"name":"Rangaroa Reserve","cat":"town","lat":-38.880482,"lon":175.263945,"where":"North of the centre","desc":"Park on the rising ground north of the shops."},
+  {"name":"Taumarunui Golf Club","cat":"town","lat":-38.864362,"lon":175.254093,"where":"About 2km north","desc":"Golf course on the northern edge of town, out past Tuhua Domain."},
+  {"name":"Taumarunui Canoe Hire","cat":"town","lat":-38.911541,"lon":175.244860,"where":"292 Hikumutu Road<br>0800 226 6348","desc":"Canoe and kayak hire for the Whanganui River, plus jet boat trips. About 4km southwest of town, so it is a drive rather than a walk."},
+  {"name":"Sawmillers Commemorative Picnic Ground","cat":"town","lat":-38.883362,"lon":175.308290,"where":"About 4km east on SH4","desc":"Roadside picnic area east of town, near the holiday park turnoff. A quieter lunch stop than anywhere in the centre."}
+];
+const ALL = POIS.concat(TOWN);
+const CAT_LABEL = { waypoint:'Waypoint', attraction:'Attraction', camping:'Camping', walk:'Walk', lookout:'Lookout', food:'Eat and drink', town:'In town' };
+const Z_BY_CAT  = { camping:0, waypoint:100, attraction:200, walk:300, lookout:400, town:150, food:250 };
 
 function esc(s){
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1547,14 +1552,15 @@ function makeIcon(cat, detour){
 }
 function popupHtml(p){
   let html = '<p class="pop-eyebrow">' + esc(CAT_LABEL[p.cat] || p.cat) + ' &middot; ' +
-    (p.detourKm ? 'off the highway near km ' : 'km ') + p.km.toFixed(1) + '</p>';
+    (p.where ? p.where.split('<br>').map(esc).join(' &middot; ')
+             : (p.detourKm ? 'off the highway near km ' : 'km ') + p.km.toFixed(1)) + '</p>';
   html += '<h3 class="pop-title">' + esc(p.name) + '</h3>';
   html += statsHtml(p);
   html += factsHtml(p);
   html += '<p class="pop-desc">' + esc(p.desc) + '</p>';
   return html;
 }
-const markers = POIS.map((p, i) => {
+const markers = ALL.map((p, i) => {
   const m = L.marker([p.lat, p.lon], {
     icon: makeIcon(p.cat, !!p.detourKm),
     zIndexOffset: Z_BY_CAT[p.cat] || 0,
@@ -1585,8 +1591,10 @@ function showMap(i){
     map.fitBounds(ROUTE_LINE, { padding:[24,24] });
     mapTitle.textContent = 'Whole route';
   } else {
-    const p = POIS[i];
-    map.setView([p.lat, p.lon], 15);
+    const p = ALL[i];
+    /* Town stops sit tens of metres apart, not kilometres, so they need a closer
+       default or the pins land on top of each other. */
+    map.setView([p.lat, p.lon], p.where ? 17 : 15);
     markers[i].openPopup();
     mapTitle.textContent = p.name;
   }
@@ -1607,7 +1615,7 @@ document.getElementById('mapAll').addEventListener('click', () => {
 
 /* ---------------- STOP LIST ---------------- */
 const stopList = document.getElementById('stopList');
-POIS.forEach((p, i) => {
+ALL.forEach((p, i) => {
   const card = document.createElement('div');
   card.className = 'stop-card';
   card.dataset.cat = p.cat;
@@ -1615,7 +1623,10 @@ POIS.forEach((p, i) => {
     '<span class="swatch cat-' + p.cat + '" aria-hidden="true"></span>' +
     '<div class="stop-body">' +
       '<h2 class="stop-name">' + esc(p.name) + '</h2>' +
-      '<p class="stop-meta">km ' + p.km.toFixed(1) + ' &middot; ' + esc(CAT_LABEL[p.cat] || p.cat) + '</p>' +
+      '<p class="stop-meta">' +
+        (p.where ? p.where.split('<br>').map(esc).join(' &middot; ')
+                 : 'km ' + p.km.toFixed(1)) +
+        ' &middot; ' + esc(CAT_LABEL[p.cat] || p.cat) + '</p>' +
       statsHtml(p) +
       factsHtml(p) +
       '<p class="stop-desc">' + esc(p.desc) + '</p>' +
@@ -1634,7 +1645,7 @@ const listScroll = document.getElementById('listScroll');
 document.querySelectorAll('.filter-btn').forEach(b => {
   const f = b.dataset.filter;
   b.querySelector('.fn').textContent =
-    f === 'all' ? POIS.length : POIS.filter(p => p.cat === f).length;
+    f === 'all' ? ALL.length : ALL.filter(p => p.cat === f).length;
 });
 
 function applyFilter(f){
@@ -1648,7 +1659,7 @@ function applyFilter(f){
   });
   let n = 0;
   markers.forEach((m, i) => {
-    const show = f === 'all' || POIS[i].cat === f;
+    const show = f === 'all' || ALL[i].cat === f;
     if (show) { n++; if (!map.hasLayer(m)) m.addTo(map); }
     else if (map.hasLayer(m)) { map.removeLayer(m); }
   });
@@ -1656,7 +1667,7 @@ function applyFilter(f){
     g.classList.toggle('dimmed', !(f === 'all' || g.dataset.cat === f));
   });
   filterCount.textContent = n + (n === 1 ? ' stop' : ' stops') +
-    (f === 'all' ? ' along the highway' : ' shown');
+    (f === 'all' ? ' on the road and in Taumarunui' : ' shown');
 }
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {

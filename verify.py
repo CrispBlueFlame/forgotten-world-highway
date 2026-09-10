@@ -16,8 +16,11 @@ def check(ok, label, detail=""):
         fail.append(label)
 
 POIS = json.loads(re.search(r'const POIS = (\[.*?\]);\n', src, re.S).group(1))
+TOWN = json.loads(re.search(r'const TOWN = (\[.*?\n\]);\n', src, re.S).group(1))
+ALL = POIS + TOWN
 cats = Counter(p["cat"] for p in POIS)
-print(f"POIS {len(POIS)}  {dict(cats)}\n")
+print(f"POIS {len(POIS)}  {dict(cats)}")
+print(f"TOWN {len(TOWN)}  {dict(Counter(p['cat'] for p in TOWN))}\n")
 
 # 1. the key must never be in the file.
 # The key lives outside the tree and is not in the repo, so a clone cannot run the
@@ -130,17 +133,50 @@ print(f"\n{n} marker pairs, closest 5:")
 for d, a, b in pairs[:5]:
     print(f"   {d:8.1f} m  {a}  <->  {b}")
 check(pairs[0][0] > 1.0, "no two markers identical")
-# at zoom 15, one pixel is about 3.6 m at this latitude
-px = pairs[0][0] / (156543.03392 * math.cos(math.radians(-39.1)) / (2**15))
-check(px >= 12, "closest pair still separable at zoom 15", f"{px:.1f} px")
+def mpp(z):
+    return 156543.03392 * math.cos(math.radians(-39.1)) / (2**z)
+# route stops open at zoom 15, where one pixel is about 3.7 m at this latitude
+px = pairs[0][0] / mpp(15)
+check(px >= 12, "closest route pair still separable at zoom 15", f"{px:.1f} px")
+
+# 9b. town stops are packed tens of metres apart, so the page opens them at zoom 17
+# instead. Same 12 px separability standard, measured at the zoom actually used, rather
+# than a weakened threshold: a gate that cannot fail is worse than no gate.
+check("p.where ? 17 : 15" in src, "town stops open at zoom 17")
+tpairs = sorted((hav((a["lat"], a["lon"]), (b["lat"], b["lon"])), a["name"], b["name"])
+                for i, a in enumerate(ALL) for b in ALL[i+1:])
+print(f"\n{len(tpairs)} pairs including town, closest 4:")
+for d, a, b in tpairs[:4]:
+    print(f"   {d:8.1f} m  {d/mpp(17):5.1f} px@z17  {a}  <->  {b}")
+check(tpairs[0][0] / mpp(17) >= 12, "closest pair including town separable at zoom 17",
+      f"{tpairs[0][0]/mpp(17):.1f} px")
+# town entries must never carry a km, or they would sort into the route and put 19
+# ticks on the elevation ribbon at km 148.6
+check(not any("km" in p for p in TOWN), "no town stop claims a highway km")
+check(all(p.get("where") and p.get("desc") for p in TOWN), "every town stop has a where and a desc")
+check(all(p["cat"] in ("food", "town") for p in TOWN), "town stops only use the two town categories")
+# the ribbon is route-only on purpose
+rib = src.split("const ticks =")[1].split(";")[0]
+check("POIS.map" in rib, "elevation ribbon still plots POIS only, not ALL")
 
 # 10. filter counts are derived, not typed.
 # The old pattern here was r'class="fn">(\d+)<', which never matched because the real
 # markup carries an id attribute between the class and the '>'. It passed vacuously
 # while the markup held a stale 38 All / 8 Attractions against a live 40 / 10.
-check("f === 'all' ? POIS.length" in src, "filter counts derived from POIS")
+check("f === 'all' ? ALL.length" in src, "filter counts derived from ALL")
 hard = re.findall(r'class="fn"[^>]*>\s*(\d+)\s*<', src)
 check(not hard, "no hardcoded filter counts in markup", f"found {hard}" if hard else "")
+# every filter button must name a category that exists, and every category must have a
+# button, or a stop becomes unreachable from the list. The eat/drink content shipped
+# once with no tab at all, which is exactly this failure.
+btns = set(re.findall(r'data-filter="([a-z]+)"', src))
+check(btns == {"all"} | {p["cat"] for p in ALL},
+      "one filter button per category, no orphans",
+      f"buttons={sorted(btns)} cats={sorted({p['cat'] for p in ALL})}")
+labels = re.search(r'const CAT_LABEL = \{(.*?)\};', src, re.S).group(1)
+for c in {p["cat"] for p in ALL}:
+    check(f"{c}:" in labels, f"CAT_LABEL has a label for {c}")
+    check(f".swatch.cat-{c}" in src and f".pin-{c}" in src, f"{c} has a swatch and a pin style")
 
 # 11. stats integrity
 for p in POIS:
@@ -177,7 +213,7 @@ for _dead in ("longest proper walk close to the highway",
               "easiest leg-stretch on the eastern half"):
     check(_dead not in src, f"retired false superlative absent: {_dead!r}")
 found = []
-for p in POIS:
+for p in ALL:
     for field in ("desc", "warning"):
         t = p.get(field) or ""
         for sent in re.split(r'(?<=[.!?])\s+', t):
